@@ -23,22 +23,18 @@ export default function Home({ products, categories }) {
 }
 
 export async function getServerSideProps(context) {
-  try {
-    const response = await axios.get("https://fakestoreapi.com/products");
-    const products = response.data;
+  const response = await axios.get("http://127.0.0.1:8000/api/product/");
+  const products = response.data;
 
-    const fetchCategories = await axios.get(
-      "http://127.0.0.1:8000/api/categories/"
-    );
-    const categories = fetchCategories.data;
+  const fetchCategories = await axios.get(
+    "http://127.0.0.1:8000/api/categories/"
+  );
+  const categories = fetchCategories.data;
 
-    return {
-      props: {
-        products,
-        categories,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-  }
+  return {
+    props: {
+      products,
+      categories,
+    },
+  };
 }

@@ -10,6 +10,16 @@ class ProductSerializer(serializers.ModelSerializer):
             ProductImages.objects.create(product=product, image=image)
         return product
 
+    category = serializers.SerializerMethodField()
+    images = serializers.SerializerMethodField()
+
+    def get_category(self, obj):
+        return obj.category.slug
+
+    def get_images(self, obj):
+        queryset = ProductImages.objects.filter(product__pk=obj.pk)
+        return ProductImagesSerializer(queryset, many=True).data
+
     class Meta:
         model = Product
         fields = "__all__"

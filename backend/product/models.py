@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 from categories.models import Categories
@@ -13,6 +14,7 @@ class Product(models.Model):
     about_items = models.TextField(verbose_name="about list of items", null=True, blank=True)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     note = models.TextField(verbose_name="note", null=True, blank=True)
+    has_prime = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.category} - {self.short_title}"
@@ -21,6 +23,3 @@ class Product(models.Model):
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, related_name="product_images", on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/products', null=True, blank=True)
-
-    def __str__(self):
-        return self.product.short_title
