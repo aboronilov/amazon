@@ -16,9 +16,9 @@ const Product = ({ id, title, price, description, category, image }) => {
     <div className="flex flex-col relative m-5 bg-white z-30 p-10">
       <p className="absolute top-2 right-2 tex-xs italic text-gray-400">{category}</p>
       
-      <Image src={image} height={200} width={200} objectFit="contain" />
+      <Image src={image} height={200} width={200} objectFit="contain" className="cursor-pointer" />
       
-      <h4 className="my-3">{title}</h4>       
+      <h4 className="my-3 cursor-pointer">{title}</h4>       
 
       <div className="flex">
         {Array(MAX_RATING).fill().map(_ => (
@@ -26,9 +26,9 @@ const Product = ({ id, title, price, description, category, image }) => {
         ))}
       </div>
 
-      <p className="text-xs my-2 line-clamp-2">{description}</p>
+      <p className="text-xs my-2 line-clamp-2 cursor-pointer">{description}</p>
 
-      <div className="mb-5">
+      <div className="mb-5 cursor-pointer">
         <Currency quantity={price} currency="GBP" />
       </div>
 
@@ -39,7 +39,7 @@ const Product = ({ id, title, price, description, category, image }) => {
         </div>
       )}
 
-      <button className="mt-auto button">Add to Basket</button>
+      <button className="mt-auto button cursor-pointer">Add to Basket</button>
     </div>
   );
 };

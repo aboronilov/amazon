@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'categories',
+    'product',
 
     'rest_framework',
     'djoser',
