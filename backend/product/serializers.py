@@ -28,4 +28,4 @@ class ProductSerializer(serializers.ModelSerializer):
 class ProductImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImages
-        exclude = ["product"]
+        fields = ["image"]

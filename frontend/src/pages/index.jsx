@@ -13,7 +13,7 @@ export default function Home({ products, categories }) {
 
       <Header />
 
-      <main className="max-w-full md:max-w-[80%] mx-auto">
+      <main className="max-w-full md:max-w-[85%] mx-auto">
         <Banner categories={categories} />
 
         <ProductFeed products={products} />
