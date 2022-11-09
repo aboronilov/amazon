@@ -7,8 +7,22 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
+import { useState } from "react";
+
+import { useRouter } from 'next/router'
 
 const Header = () => {
+  const [search, setSearch] = useState("");
+  const router = useRouter()
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      router.push({
+        pathname: "/search",
+        query: {q: search}
+      })
+    }
+  }
+
   return (
     <header>
       {/* top nav */}
@@ -30,8 +44,19 @@ const Header = () => {
           <input
             type="text"
             className="w-6 h-full rounded-l-lg flex-grow flex-shrink outline-none p-2"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            onKeyPress={handleSearch}
           />
-          <SearchIcon className="h-12 p-4 cursor-pointer" />
+          <SearchIcon
+            className="h-12 p-4 cursor-pointer"
+            onClick={() => {
+              router.push({
+                pathname: "/search",
+                query: {q: search}
+              })
+            }}            
+          />
         </div>
 
         {/* right */}

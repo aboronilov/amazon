@@ -7,7 +7,6 @@ import { addDays } from "date-fns";
 
 const ProductDetail = ({ product }) => {
   const {
-    category,
     images,
     title,
     rating,
@@ -15,7 +14,6 @@ const ProductDetail = ({ product }) => {
     description,
     about_items,
     note,
-    has_prime,
   } = product;
 
   const [image, setImage] = useState(images[0].image);
@@ -52,7 +50,7 @@ const ProductDetail = ({ product }) => {
             </div>
           ))}
         </div>
-        <div className="flex h-[250px] w-[250px] md:h-[400px] md:w-[400px] lg:h-[450px] lg:w-[450px] relative">
+        <div className="flex h-[250px] w-[250px] md:h-[300px] md:w-[300px] xl:h-[450px] xl:w-[450px] relative">
           <Image
             src={`http://127.0.0.1:8000/${image}`}
             objectFit="contain"
@@ -78,8 +76,8 @@ const ProductDetail = ({ product }) => {
       </div>
 
       {/* middle */}
-      <div className="flex flex-col px-2">
-        <p className="font-medium md:text-2xl">{title}</p>
+      <div className="flex flex-col flex-grow px-2">
+        <p className="font-medium text-xl xl:text-2xl">{title}</p>
         <div className="mt-2 md:mt-4 flex cursor-pointer">
           {Array(rating)
             .fill()
@@ -89,11 +87,11 @@ const ProductDetail = ({ product }) => {
         </div>
         <div className="mt-1 w-full border-b border-gray-400"></div>
 
-        <p className="my-1 text-xl md:my-3 md:text-2xl">
+        <p className="my-1 text-xl xl:my-3 xl:text-2xl">
           <Currency quantity={price} currency="GBP" />
         </p>
         <p className="text-xs text-gray-500">No Import Fees Deposit</p>
-        <div className="flex flex-col mt-1 md:mt-3 text-xs md:text-sm gap-y-1 md:gap-y-2">
+        <div className="flex flex-col mt-1 xl:mt-3 text-xs xl:text-sm gap-y-1 md:gap-y-2">
           {descriptionList.map((item) => {
             const itemList = item.split(" - ");
             return (
@@ -106,16 +104,16 @@ const ProductDetail = ({ product }) => {
         </div>
         <div className="mt-1 w-full border-b border-gray-400"></div>
 
-        <div className="text-sm md:text-xl font-bold mt-1 md:mt-2">About this item</div>
+        <div className="text-sm xl:text-xl font-bold mt-1 xl:mt-2">About this item</div>
         <ul>
           {about.map((item, i) => (
-            <li key={i} className="list-disc list-inside text-xs md:text-sm">
+            <li key={i} className="list-disc list-inside text-xs xl:text-sm">
               {item}
             </li>
           ))}
         </ul>
         {note && (
-          <div className="mt-1 text-xs md:mt-5 md:text-sm inline-block">
+          <div className="mt-1 text-xs xl:mt-5 xl:text-sm inline-block">
             <span className="font-bold">Note: </span>
             <span className="">{note}</span>
           </div>
@@ -123,7 +121,7 @@ const ProductDetail = ({ product }) => {
       </div>
 
       {/* right */}
-      <div className="border-2 border-gray-300 px-2 rounded-lg m-1 max-h-64">
+      <div className="border-2 border-gray-300 px-2 rounded-lg m-1 h-[40%] min-w-[15%] flex flex-col justify-between">
         <p className="text-xl md:text-2xl">
           <Currency quantity={price} currency="GBP" />
         </p>
@@ -149,7 +147,7 @@ const ProductDetail = ({ product }) => {
               clip-rule="evenodd"
             />
           </svg>
-          <p className="text-xs mt-1 md:mt-2 text-blue-400 font-semibold">Secure transaction</p>
+          <p className="text-xs text-blue-400 font-semibold ml-3">Secure transaction</p>
         </div>
       </div>
     </div>
