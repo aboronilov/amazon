@@ -30,13 +30,13 @@ const Login = () => {
 
         <div className="border-2 border-gray-200 flex flex-col justify-start rounded-md">
           <div className="m-5">
-            <p className="text-2xl my-3">Sign in</p>
-            <p className="font-bold text-xs">Email</p>
+            <div className="text-2xl my-3">Sign in</div>
+            <div className="font-bold text-xs">Email</div>
             <input
               type="email"
               className="mt-1 w-64 text-sm border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
             />
-            <p className="font-bold text-xs mt-1">Password</p>
+            <div className="font-bold text-xs mt-1">Password</div>
             <input
               type="password"
               className="mt-1 w-64 border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
@@ -44,7 +44,7 @@ const Login = () => {
             <div className="mt-3 w-64">
               <button className="button cursor-pointer w-full">Continue</button>
             </div>
-            <p className="text-xs text-center my-1">or</p>
+            <div className="text-xs text-center my-1">or</div>
             <div className="mt-3 w-64">
               <button
                 onClick={handleGoogleLogin}
@@ -53,7 +53,7 @@ const Login = () => {
                 Continue with Google
               </button>
             </div>
-            <p className="text-xs mt-6">
+            <div className="text-xs mt-6">
               By continuing, you agree to{" "}
               <span className="text-blue-500 cursor-pointer font-semibold hover:opacity-80">
                 Conditions of Use
@@ -62,7 +62,7 @@ const Login = () => {
               <span className="text-blue-500 cursor-pointer font-semibold hover:opacity-80">
                 Privacy Notice
               </span>
-            </p>
+            </div>
           </div>
         </div>
 
@@ -97,7 +97,7 @@ const Login = () => {
               Help
             </div>
           </div>
-          <p className="text-xs mt-3">© Amazon.com, Inc. or its affiliates</p>
+          <div className="text-xs mt-3">© Amazon.com, Inc. or its affiliates</div>
         </div>
       </div>
     </>

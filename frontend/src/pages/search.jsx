@@ -18,7 +18,7 @@ const Search = ({ products }) => {
       <Header />
 
       <main className="max-w-full md:max-w-[70%] mx-auto">        
-        <p className="text-2xl uppercase font-semibold mb-3">Results</p>
+        <div className="text-2xl uppercase font-semibold mb-3">Results</div>
         {products.length > 0 ? (
           products.map(({ id, title, images, rating, price, description, slug }) => (
           <Link href={`/product/${slug}`}>
@@ -43,9 +43,9 @@ const Search = ({ products }) => {
                         <StarIcon className="h-5 text-yellow-500" />
                       ))}
                   </div>
-                  <p className="my-1 text-xl">
+                  <div className="my-1 text-xl">
                     <Currency quantity={price} currency="GBP" />
-                  </p>
+                  </div>
                   <div className="text-xs md:text-sm text-gray-500 line-clamp-1 sm:line-clamp-2 md:line-clamp-3 lg:line-clamp-none">
                     {description}
                   </div>

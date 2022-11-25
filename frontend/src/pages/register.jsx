@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
+  const [error, setError] = useState("")
+  const [email, setEmail] = useState("")
+  const [first_name, setFirst_name] = useState("")
+  const [last_name, setLast_name] = useState("")
+  const [password, setPassword] = useState("")
+  const [re_password, setRe_password] = useState("")
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password === re_password) {
+      try {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/register/`, {
+          first_name,
+          last_name,
+          email,
+          password,
+        });
+        if (response.status === 201) {
+          router.push("/login");
+        } 
+      } catch (error) {
+        setError("password is too simple")
+        console.log(error.response.data)
+      }
+    } else {
+      setError("passwords are not equal")
+    } 
+  };
+
   return (
     <>
       <div className="bg-white flex flex-col justify-center items-center">
@@ -20,36 +52,57 @@ const Login = () => {
 
         <div className="border-2 border-gray-200 flex flex-col justify-start rounded-md">
           <div className="m-5">
-            <p className="text-2xl my-3">Sign in</p>
-            <p className="font-bold text-xs">Email</p>
-            <input
-              type="email"
-              className="mt-1 w-64 text-sm border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
-            />
-            <p className="font-bold text-xs mt-1">First name</p>
-            <input
-              type="email"
-              className="mt-1 w-64 text-sm border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
-            />
-            <p className="font-bold text-xs mt-1">Last name</p>
-            <input
-              type="email"
-              className="mt-1 w-64 text-sm border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
-            />
-            <p className="font-bold text-xs mt-1">Password</p>
-            <input
-              type="password"
-              className="mt-1 w-64 border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
-            />
-            <p className="font-bold text-xs mt-1">Re-enter password</p>
-            <input
-              type="password"
-              className="mt-1 w-64 border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
-            />
-            <div className="mt-3 w-64">
-              <button className="button cursor-pointer w-full">Continue</button>
-            </div>
-            <p className="text-xs mt-6">
+            <div className="text-xl md:text-2xl my-3">Sign in</div>
+            <form onSubmit={(e) => onSubmit(e)}>
+              <div className="font-bold text-xs">Email</div>
+              <input
+                type="email"
+                className="mt-1 w-64 text-xs border border-gray-400 outline-none pl-2 py-1 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <div className="font-bold text-xs mt-1">First name</div>
+              <input
+                type="text"
+                className="mt-1 w-64 text-xs border border-gray-400 outline-none pl-2 py-1 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+                onChange={(e) => setFirst_name(e.target.value)}
+                required
+              />
+              <div className="font-bold text-xs mt-1">Last name</div>
+              <input
+                type="text"
+                className="mt-1 w-64 text-xs border border-gray-400 outline-none pl-2 py-1 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+                onChange={(e) => setLast_name(e.target.value)}
+                required
+              />
+              <div className="font-bold text-xs mt-1">Password</div>
+              <input
+                type="password"
+                className="text-xs mt-1 w-64 border border-gray-400 outline-none pl-2 py-1 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="min 8 characters and different from email"
+                minLength="8"
+              />
+              <div className="font-bold text-xs mt-1">Re-enter password</div>
+              <input
+                type="password"
+                className="text-xs mt-1 w-64 border border-gray-400 outline-none pl-2 py-1 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+                placeholder="min 8 characters and different from email"
+                onChange={(e) => setRe_password(e.target.value)}
+                minLength="8"
+                required
+              />
+
+              {error && <div className="text-xs text-red-400">{error}</div>}
+
+              <div className="mt-3 w-64">
+                <button className="button cursor-pointer w-full">
+                  Continue
+                </button>
+              </div>
+            </form>
+            <div className="text-xs mt-6">
               By continuing, you agree to{" "}
               <span className="text-blue-500 cursor-pointer font-semibold hover:opacity-80">
                 Conditions of Use
@@ -58,7 +111,7 @@ const Login = () => {
               <span className="text-blue-500 cursor-pointer font-semibold hover:opacity-80">
                 Privacy Notice
               </span>
-            </p>
+            </div>
           </div>
         </div>
 
@@ -93,7 +146,7 @@ const Login = () => {
               Help
             </div>
           </div>
-          <p className="text-xs mt-3">© Amazon.com, Inc. or its affiliates</p>
+          <div className="text-xs mt-3">© Amazon.com, Inc. or its affiliates</div>
         </div>
       </div>
     </>

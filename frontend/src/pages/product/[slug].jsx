@@ -1,6 +1,5 @@
 import Head from "next/head";
 import React from "react";
-import Banner from "../../components/Banner";
 import Header from "../../components/Header";
 import axios from "axios";
 import ProductDetail from "../../components/ProductDetail";

@@ -14,7 +14,7 @@ const Banner = ({ categories }) => {
             href={`/category/${item.slug}`}
             passHref
           >
-            <Link>
+            <Link href={`/category/${item.slug}`}>
               <img
                 src={item.image}
                 alt={item.name}
