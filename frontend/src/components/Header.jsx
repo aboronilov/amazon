@@ -9,19 +9,29 @@ import {
 } from "@heroicons/react/outline";
 import { useState } from "react";
 
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/userRedux";
 
 const Header = () => {
   const [search, setSearch] = useState("");
-  const router = useRouter()
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { isAuthenticated, currentUser } = useSelector((state) => state.user);
+
   const handleSearch = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       router.push({
         pathname: "/search",
-        query: {q: search}
-      })
+        query: { q: search },
+      });
     }
-  }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(logout());
+  };
 
   return (
     <header>
@@ -53,18 +63,26 @@ const Header = () => {
             onClick={() => {
               router.push({
                 pathname: "/search",
-                query: {q: search}
-              })
-            }}            
+                query: { q: search },
+              });
+            }}
           />
         </div>
 
         {/* right */}
         <div className="flex text-white gap-x-6 ml-3 items-center text-xs md:text-sm mx-6 whitespace-nowrap">
-          <div className="link" onClick={() => router.push("/login")}>
-            <div>Hello Anatoly</div>
-            <div className="font-extrabold">Account & Lists</div>
-          </div>
+          {isAuthenticated ? (
+            <div className="link">
+              <div>Hello <span className="capitalize text-yellow-300">{currentUser.first_name}</span></div>
+              <div className="font-extrabold" onClick={handleLogout}>Logout</div>
+            </div>
+          ) : (
+            <div className="link" onClick={() => router.push("/login")}>
+              <div>Login</div>
+              <div className="font-extrabold">Account & Lists</div>
+            </div>
+          )}
+
           <div className="link">
             <div>Returns</div>
             <div className="font-extrabold">& Orders</div>
@@ -80,13 +98,13 @@ const Header = () => {
       </div>
       {/* bottom nav */}
       <div className="flex items-center gap-x-3 p-3 pl-6 bg-amazon_blue-light text-white">
-        <div className="flex items-center link">
-          <MenuIcon className="mr-1 h-6" />
+        <div className="flex items-center link text-xs lg:text-sm">
+          <MenuIcon className="mr-1 h-4 lg:h-6 " />
           All
         </div>
-        <div className="link">Prime video</div>
-        <div className="link">Amazon Business</div>
-        <div className="link">Today's Deals</div>
+        <div className="link text-xs lg:text-sm">Prime video</div>
+        <div className="link text-xs lg:text-sm">Amazon Business</div>
+        <div className="link text-xs lg:text-sm">Today's Deals</div>
         <div className="link hidden lg:block">Electronics</div>
         <div className="link hidden lg:block">Food & Grocery</div>
         <div className="link hidden lg:block">Prime</div>

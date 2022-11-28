@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { login, message } from "../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/userRedux";
+import { useRouter } from "next/router";
 
-const Login = () => {
+const Login = () => {  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { isFetching, isAuthenticated, error } = useSelector((state) => state.user);
+  const router = useRouter()
+
+  const handleLogin = async () => {
+    await login(dispatch, {email, password})
+  }; 
+
+  if (isAuthenticated) {
+    router.push("/")
+  } 
+
   const handleGoogleLogin = async () => {
     try {
-        const API_URL = process.env.REACT_APP_BACKEND_HOST
-        const GOOGLE_AUTH_ENDPOINT = `/api/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_BACKEND_HOST}`
-        const response = await axios.get(`${API_URL}${GOOGLE_AUTH_ENDPOINT}`)        
+      const GOOGLE_AUTH_ENDPOINT = `/api/auth/o/google-oauth2/?redirect_uri=${process.env.NEXT_PUBLIC_API_URL}`;
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}${GOOGLE_AUTH_ENDPOINT}`
+      );
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
   return (
@@ -34,15 +53,30 @@ const Login = () => {
             <div className="font-bold text-xs">Email</div>
             <input
               type="email"
-              className="mt-1 w-64 text-sm border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+              className="mt-1 w-64 text-xs py-1 border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+              required
+              onChange={(e) => setEmail(e.target.value)}
             />
             <div className="font-bold text-xs mt-1">Password</div>
             <input
               type="password"
-              className="mt-1 w-64 border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+              className="mt-1 w-64 text-xs py-1 border border-gray-400 outline-none pl-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-sm active:from-yellow-500 hover:opacity-80 transition duration-300 ease-out"
+              required
+              onChange={(e) => setPassword(e.target.value)}
             />
+
+            {error && (
+              <div className="text-xs text-red-400">Wrong email or password</div>
+            )}
+
             <div className="mt-3 w-64">
-              <button className="button cursor-pointer w-full">Continue</button>
+              <button
+                className="button cursor-pointer w-full"
+                onClick={handleLogin}
+                disabled={isFetching}
+              >
+                Continue
+              </button>
             </div>
             <div className="text-xs text-center my-1">or</div>
             <div className="mt-3 w-64">
@@ -97,7 +131,9 @@ const Login = () => {
               Help
             </div>
           </div>
-          <div className="text-xs mt-3">© Amazon.com, Inc. or its affiliates</div>
+          <div className="text-xs mt-3">
+            © Amazon.com, Inc. or its affiliates
+          </div>
         </div>
       </div>
     </>
