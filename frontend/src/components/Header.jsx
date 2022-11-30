@@ -98,13 +98,13 @@ const Header = () => {
       </div>
       {/* bottom nav */}
       <div className="flex items-center gap-x-3 p-3 pl-6 bg-amazon_blue-light text-white">
-        <div className="flex items-center link text-xs lg:text-sm">
-          <MenuIcon className="mr-1 h-4 lg:h-6 " />
+        <div className="flex items-center link">
+          <MenuIcon className="mr-1 h-4 md:h-6 " />
           All
         </div>
-        <div className="link text-xs lg:text-sm">Prime video</div>
-        <div className="link text-xs lg:text-sm">Amazon Business</div>
-        <div className="link text-xs lg:text-sm">Today's Deals</div>
+        <div className="link">Prime video</div>
+        <div className="link">Amazon Business</div>
+        <div className="link">Today's Deals</div>
         <div className="link hidden lg:block">Electronics</div>
         <div className="link hidden lg:block">Food & Grocery</div>
         <div className="link hidden lg:block">Prime</div>

@@ -24,7 +24,7 @@ export const login = async (dispatch, { email, password }) => {
         },
       });
       const response = await authAxios.get("/api/users/me/");
-      console.log(response.data);
+      // console.log(response.data);
       dispatch(loginSuccess(response.data));
     } catch (err) {
       dispatch(loginFailure());

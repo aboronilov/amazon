@@ -49,7 +49,7 @@ const Login = () => {
 
         <div className="border-2 border-gray-200 flex flex-col justify-start rounded-md">
           <div className="m-5">
-            <div className="text-2xl my-3">Sign in</div>
+            <div className="text-xl md:text-2xl my-3">Sign in</div>
             <div className="font-bold text-xs">Email</div>
             <input
               type="email"
@@ -82,7 +82,7 @@ const Login = () => {
             <div className="mt-3 w-64">
               <button
                 onClick={handleGoogleLogin}
-                className="rounded-sm text-sm md:text-xs border border-blue-100 py-2 cursor-pointer w-full focus:outline-none hover:border-blue-300 hover:opacity-80 transition duration-300 ease-out"
+                className="w-full cursor-pointer p-2 text-xs md:text-sm bg-gradient-to-b from-red-200 to-red-400 border border-red-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-red-500 active:from-red-500 hover:opacity-80 transition duration-300 ease-out"
               >
                 Continue with Google
               </button>

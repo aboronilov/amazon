@@ -1,4 +1,4 @@
-asgiref==3.5.2
+asgiref==3.5.2na
 certifi==2022.9.24
 cffi==1.15.1
 charset-normalizer==2.1.1
@@ -32,3 +32,4 @@ social-auth-core==4.3.0
 sqlparse==0.4.3
 uritemplate==4.1.1
 urllib3==1.26.12
+yapf==0.32.0
