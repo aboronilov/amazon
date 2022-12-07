@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
 
-const user_credential = []
+let user_credential = []
 
 export default NextAuth({
     providers: [

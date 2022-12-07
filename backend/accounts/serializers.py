@@ -2,6 +2,9 @@ from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from rest_framework.exceptions import AuthenticationFailed
+
 
 User = get_user_model()
 

@@ -1,6 +1,4 @@
 import axios from "axios";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import { loginFailure, loginStart, loginSuccess, logout } from "./userRedux";
 
 export const login = async (dispatch, { email, password }) => {
@@ -33,5 +31,3 @@ export const login = async (dispatch, { email, password }) => {
     dispatch(loginFailure());
   }
 };
-
-

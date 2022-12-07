@@ -9,7 +9,6 @@ class RegisterView(APIView):
 
     def post(self, request):
         data = request.data
-
         serializer = UserCreateSerializer(data=data)
 
         if not serializer.is_valid():

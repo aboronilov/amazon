@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
-import { login, message } from "../redux/apiCalls";
+import { useSession, signIn } from "next-auth/react"
+import { useEffect } from "react";
+import { login, googleLogin } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/userRedux";
 import { useRouter } from "next/router";
 
 const Login = () => {  
@@ -22,16 +22,17 @@ const Login = () => {
     router.push("/")
   } 
 
-  const handleGoogleLogin = async () => {
-    try {
-      const GOOGLE_AUTH_ENDPOINT = `/api/auth/o/google-oauth2/?redirect_uri=${process.env.NEXT_PUBLIC_API_URL}`;
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}${GOOGLE_AUTH_ENDPOINT}`
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     const GOOGLE_AUTH_ENDPOINT = `/api/auth/o/google-oauth2/?redirect_uri=${process.env.NEXT_PUBLIC_API_URL}`;
+  //     const response = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_API_URL}${GOOGLE_AUTH_ENDPOINT}`
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <>
       <div className="bg-white flex flex-col justify-center items-center">
@@ -81,8 +82,8 @@ const Login = () => {
             <div className="text-xs text-center my-1">or</div>
             <div className="mt-3 w-64">
               <button
-                onClick={handleGoogleLogin}
-                className="w-full cursor-pointer p-2 text-xs md:text-sm bg-gradient-to-b from-red-200 to-red-400 border border-red-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-red-500 active:from-red-500 hover:opacity-80 transition duration-300 ease-out"
+                onClick=""
+                className="w-full cursor-pointer p-2 text-xs md:text-sm text-white bg-gradient-to-b from-blue-400 to-blue-700 border border-blue-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 active:from-blue-500 hover:opacity-80 transition duration-300 ease-out"
               >
                 Continue with Google
               </button>

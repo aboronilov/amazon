@@ -3,7 +3,6 @@ import Product from "./Product";
 import axios from "axios";
 
 const ProductFeed = ({ products }) => {
-  const size = Object.keys(products).length;
   return (
     <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-28 mx-auto">
       {products.map(

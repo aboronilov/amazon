@@ -52,7 +52,7 @@ const ProductDetail = ({ product }) => {
         </div>
         <div className="flex h-[250px] w-[250px] md:h-[300px] md:w-[300px] xl:h-[450px] xl:w-[450px] relative">
           <Image
-            src={`http://127.0.0.1:8000/${image}`}
+            src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
             objectFit="contain"
             layout="fill"
             className="cursor-pointer rounded-lg"
@@ -65,7 +65,7 @@ const ProductDetail = ({ product }) => {
           {images.map(({ image }, i) => (
             <div key={i} className="h-96 w-96">
               <Image
-                src={`http://127.0.0.1:8000/${image}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
                 objectFit="contain"
                 layout="fill"
                 className="cursor-pointer rounded-lg"
@@ -126,7 +126,7 @@ const ProductDetail = ({ product }) => {
           <Currency quantity={price} currency="GBP" />
         </div>
         <div className="text-xs text-gray-500 mt-1 md:mt-2">
-          No Import Fees Deposit & $14.91 Shipping to Germany
+          No Import Fees Deposit & Shipping 
         </div>
         <div className="mt-1 md:mt-2 text-xs">
           <span>Delivery </span>
