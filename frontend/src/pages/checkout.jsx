@@ -1,12 +1,27 @@
 import Image from "next/image";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
-import { selectItems } from "../redux/basketRedux";
+import { selectItems, selectTotal } from "../redux/basketRedux";
+import Currency from "react-currency-formatter";
+import { useRouter } from "next/router";
 
 const Checkout = () => {
   const items = useSelector(selectItems);
+  const total = useSelector(selectTotal)
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const router = useRouter()
+
+  const handleRedirect = () => {
+    if (!isAuthenticated) {
+      router.push("/login")
+    } else {
+      router.push("/")
+    }
+  }
+
   return (
     <div className="bg-gray-100">
       <Header />
@@ -53,7 +68,28 @@ const Checkout = () => {
         </div>
 
         {/* Right */}
-        <div className=""></div>
+        <div className="flex flex-col bg-white p-10 shadow-md">
+          {items.length > 0 && (
+            <>
+              <h2 className="whitespace-nowrap">
+                Subtotal ({items.length} items):
+                <span className="font-bold ml-1">
+                  <Currency quantity={total} currency="GBP" />
+                </span>
+              </h2>
+
+              <button
+                className={`button mt-2 ${
+                  !isAuthenticated &&
+                  "from-gray-300 to-gray-500 border-gray-200"
+                }`}
+                onClick={handleRedirect}
+              >
+                {!isAuthenticated ? "Login to checkout" : "Proceed to checkout"}
+              </button>
+            </>
+          )}
+        </div>
       </main>
     </div>
   );

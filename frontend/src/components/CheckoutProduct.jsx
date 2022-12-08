@@ -34,13 +34,14 @@ const CheckoutProduct = ({
     dispatch(removeFromBasket({slug}))
   }
   return (
-    <div className="grid grid-cols-5 shadow shadow-slate-300">
-      <div className="my-auto">
+    <div className="grid grid-cols-5 shadow shadow-slate-300 relative p-1">
+      <div className="h-40 relative">
         <Image
           src={`${process.env.NEXT_PUBLIC_API_URL}/${images[0].image}`}
-          width={200}
-          height={200}
+        //   width={200}
+        //   height={200}
           objectFit="contain"
+          layout="fill"
         />
       </div>
 
@@ -61,7 +62,7 @@ const CheckoutProduct = ({
         <Currency quantity={price} currency="GBP" />
       </div>
 
-      <div className="flex flex-col space-y-2 my-auto justify-self-end">
+      <div className="flex flex-col space-y-2 my-auto justify-self-end mr-1">
         <button className="button mt-auto" onClick={addItemToBasket}>Add to Basket</button>
         <button className="button mt-auto" onClick={removeItemFromBasket}>Remove from Basket</button>
       </div>
