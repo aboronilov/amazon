@@ -12,12 +12,14 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userRedux";
+import { selectItems } from "../redux/basketRedux";
 
 const Header = () => {
   const [search, setSearch] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
   const { isAuthenticated, currentUser } = useSelector((state) => state.user);
+  const items = useSelector(selectItems)
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -87,9 +89,9 @@ const Header = () => {
             <div>Returns</div>
             <div className="font-extrabold">& Orders</div>
           </div>
-          <div className="link flex items-center relative">
+          <div className="link flex items-center relative" onClick={()=>router.push('/checkout')}>
             <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-xs text-gray-800 font-bold">
-              4
+              {items.length}
             </span>
             <ShoppingCartIcon className="h-10" />
             <div className="hidden md:block font-extrabold mt-2">Basket</div>
