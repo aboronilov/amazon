@@ -142,3 +142,7 @@ const Login = () => {
 };
 
 export default Login;
+
+// https://github.com/Ahmed712441/auth-rest
+// https://www.section.io/engineering-education/social-authentication-with-djoser-in-react-applications/
+// https://abhik-b.medium.com/step-by-step-guide-to-email-social-logins-in-django-5e5436e20591

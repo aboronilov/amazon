@@ -11,6 +11,7 @@
   "dependencies": {
     "@heroicons/react": "1.0.6",
     "@reduxjs/toolkit": "^1.9.0",
+    "@stripe/stripe-js": "^1.46.0",
     "@tailwindcss/line-clamp": "^0.4.2",
     "axios": "^1.2.0",
     "date-fns": "^2.29.3",
@@ -20,7 +21,8 @@
     "react-currency-formatter": "^1.1.0",
     "react-dom": "18.2.0",
     "react-material-ui-carousel": "^3.4.2",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "stripe": "^11.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

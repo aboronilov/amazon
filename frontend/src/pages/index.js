@@ -11,6 +11,7 @@ export default function Home({ products, categories }) {
     <div className="bg-gray-100">
       <Head>
         <title>Boronilov Amazon</title>
+        <link rel="shortcut icon" href="/Amazon-logo-meaning.jpg" />
       </Head>
 
       <Header />
@@ -25,11 +26,11 @@ export default function Home({ products, categories }) {
 }
 
 export async function getServerSideProps(context) {
-  const response = await axios.get("http://127.0.0.1:8000/api/product/");
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/product/`);
   const products = response.data;
 
   const fetchCategories = await axios.get(
-    "http://127.0.0.1:8000/api/categories/"
+    `${process.env.NEXT_PUBLIC_API_URL}/api/categories/`
   );
   const categories = fetchCategories.data;
 

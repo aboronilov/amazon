@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginFailure, loginStart, loginSuccess, logout } from "./userRedux";
+import { loginFailure, loginStart, loginSuccess } from "./userRedux";
 
 export const login = async (dispatch, { email, password }) => {
   dispatch(loginStart());

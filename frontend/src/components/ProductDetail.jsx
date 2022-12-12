@@ -42,7 +42,7 @@ const ProductDetail = ({ product }) => {
               }}
             >
               <Image
-                src={`http://127.0.0.1:8000/${image}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
                 objectFit="contain"
                 layout="fill"
                 className="cursor-pointer rounded-lg"

@@ -6,19 +6,35 @@ import Header from "../components/Header";
 import { selectItems, selectTotal } from "../redux/basketRedux";
 import Currency from "react-currency-formatter";
 import { useRouter } from "next/router";
+import {loadStripe} from "@stripe/stripe-js"
+import axios from "axios"
+const stripePromise = loadStripe(process.env.stipe_public_key)
 
 const Checkout = () => {
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal)
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, currentUser } = useSelector((state) => state.user);
   const router = useRouter()
 
-  const handleRedirect = () => {
+  const handleRedirect = async () => {
     if (!isAuthenticated) {
       router.push("/login")
     } else {
-      router.push("/")
+      const stripe = await stripePromise;
+
+      // call backend to create a checkout session
+      const checkoutSession = await axios.post("/api/create-checkout-session", 
+      {
+        items: items,
+        email: currentUser.email,
+      })
+
+      // redirect user to Stripe checkout
+      const result = await stripe.redirectToCheckout({
+        sessionId: checkoutSession.data.id
+      })
+      result.error && alert(result.error.message)      
     }
   }
 
@@ -84,6 +100,7 @@ const Checkout = () => {
                   "from-gray-300 to-gray-500 border-gray-200"
                 }`}
                 onClick={handleRedirect}
+                role="link"
               >
                 {!isAuthenticated ? "Login to checkout" : "Proceed to checkout"}
               </button>

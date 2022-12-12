@@ -26,7 +26,7 @@ const Search = ({ products }) => {
               <div className="flex flex-row items-start mb-2 border-2 border-gray-100">
                 <div className="flex relative min-w-[150px] md:min-w-[250px] lg:min-w-[350px] xl:min-w-[450px] w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] ">
                   <Image
-                    src={`http://127.0.0.1:8000/${images[0].image}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/${images[0].image}`}
                     objectFit="contain"
                     layout="fill"
                     className="cursor-pointer rounded-lg"
@@ -64,7 +64,7 @@ const Search = ({ products }) => {
 export default Search;
 
 export async function getServerSideProps(context) {
-  const fetchProducts = await axios.get("http://127.0.0.1:8000/api/product/");
+  const fetchProducts = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/product/`);
   const data = fetchProducts.data;
   const search = context.query.q.toLowerCase();
   const filterProducts = (item) => {
