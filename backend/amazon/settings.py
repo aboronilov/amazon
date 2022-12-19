@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'categories',
     'product',
     'accounts',
+    'order',
 
     'rest_framework',
     "corsheaders",

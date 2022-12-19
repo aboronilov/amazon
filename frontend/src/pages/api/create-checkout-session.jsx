@@ -13,11 +13,11 @@ export default async (req, res) => {
       product_data: {
         name: item.title,
         images: [
-          `${process.env.NEXT_PUBLIC_API_URL}/${item.images[0].image}`,
-          `${process.env.NEXT_PUBLIC_API_URL}/${item.images[1].image}`,
-          `${process.env.NEXT_PUBLIC_API_URL}/${item.images[2].image}`,
-          `${process.env.NEXT_PUBLIC_API_URL}/${item.images[3].image}`,
-          `${process.env.NEXT_PUBLIC_API_URL}/${item.images[4].image}`,
+          `${process.env.NEXT_PUBLIC_API_URL}${item.images[0].image}/`
+        //   `${process.env.NEXT_PUBLIC_API_URL}/${item.images[1].image}`,
+        //   `${process.env.NEXT_PUBLIC_API_URL}/${item.images[2].image}`,
+        //   `${process.env.NEXT_PUBLIC_API_URL}/${item.images[3].image}`,
+        //   `${process.env.NEXT_PUBLIC_API_URL}/${item.images[4].image}`,
         ],
       },
     },
@@ -50,11 +50,12 @@ export default async (req, res) => {
       email,
       images: JSON.stringify(
         items.map(
-          (item) => `${process.env.NEXT_PUBLIC_API_URL}/${item.images[0].image}`
+          (item) => `${process.env.NEXT_PUBLIC_API_URL}${item.images[0].image}/`
         )
       ),
     },
   });
 
   res.status(200).json({ id: session.id });
+  // console.log(transformedItems, session)
 };

@@ -41,3 +41,8 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+// ToDo:
+// - auth state persist on refresh (вроде у Ламы редакс персист)
+// - quantity of products
+// - social auth
