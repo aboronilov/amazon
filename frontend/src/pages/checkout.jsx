@@ -15,6 +15,7 @@ const Checkout = () => {
   const total = useSelector(selectTotal)
   const dispatch = useDispatch();
   const { isAuthenticated, currentUser } = useSelector((state) => state.user);
+  const { totatlQuantity } = useSelector((state) => state.basket);
   const router = useRouter()
 
   const handleRedirect = async () => {
@@ -67,6 +68,7 @@ const Checkout = () => {
                 price,
                 description,
                 category,
+                quantity,
               }) => (
                 <CheckoutProduct
                   key={slug}
@@ -77,6 +79,7 @@ const Checkout = () => {
                   price={price}
                   description={description}
                   category={category}
+                  quantity={quantity}
                 />
               )
             )}
@@ -88,7 +91,7 @@ const Checkout = () => {
           {items.length > 0 && (
             <>
               <h2 className="whitespace-nowrap">
-                Subtotal ({items.length} items):
+                Subtotal ({totatlQuantity} items):
                 <span className="font-bold ml-1">
                   <Currency quantity={total} currency="GBP" />
                 </span>

@@ -19,7 +19,8 @@ const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isAuthenticated, currentUser } = useSelector((state) => state.user);
-  const items = useSelector(selectItems)
+  const { totatlQuantity } = useSelector((state) => state.basket);
+  const items = useSelector(selectItems);
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -75,8 +76,15 @@ const Header = () => {
         <div className="flex text-white gap-x-6 ml-3 items-center text-xs md:text-sm mx-6 whitespace-nowrap">
           {isAuthenticated ? (
             <div className="link">
-              <div>Hello <span className="capitalize text-yellow-300">{currentUser.first_name}</span></div>
-              <div className="font-extrabold" onClick={handleLogout}>Logout</div>
+              <div>
+                Hello{" "}
+                <span className="capitalize text-yellow-300">
+                  {currentUser.first_name}
+                </span>
+              </div>
+              <div className="font-extrabold" onClick={handleLogout}>
+                Logout
+              </div>
             </div>
           ) : (
             <div className="link" onClick={() => router.push("/login")}>
@@ -89,9 +97,12 @@ const Header = () => {
             <div>Returns</div>
             <div className="font-extrabold">& Orders</div>
           </div>
-          <div className="link flex items-center relative" onClick={()=>router.push('/checkout')}>
+          <div
+            className="link flex items-center relative"
+            onClick={() => router.push("/checkout")}
+          >
             <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-xs text-gray-800 font-bold">
-              {items.length}
+              {totatlQuantity}
             </span>
             <ShoppingCartIcon className="h-10" />
             <div className="hidden md:block font-extrabold mt-2">Basket</div>

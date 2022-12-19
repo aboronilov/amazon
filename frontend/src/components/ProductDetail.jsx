@@ -4,6 +4,8 @@ import Carousel from "react-material-ui-carousel";
 import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
 import { addDays } from "date-fns";
+import { useDispatch } from "react-redux";
+import { addToBasket } from "../redux/basketRedux";
 
 const ProductDetail = ({ product }) => {
   const {
@@ -14,6 +16,8 @@ const ProductDetail = ({ product }) => {
     description,
     about_items,
     note,
+    slug,
+    category,
   } = product;
 
   const [image, setImage] = useState(images[0].image);
@@ -27,6 +31,30 @@ const ProductDetail = ({ product }) => {
 
   const now = new Date();
   const deliveryDate = addDays(now, 3).toDateString();
+
+  const [quantity, setQuantity] = useState(1);
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const dispatch = useDispatch();
+  const addItemToBasket = () => {
+    const item = {
+      title,
+      images,
+      rating,
+      slug,
+      price,
+      description,
+      category,
+      quantity,
+    };
+    dispatch(addToBasket(item));
+  };
 
   return (
     <div className="flex flex-col lg:flex-row gap-y-3 md:gap-x-3 mt-5 md:mt-10">
@@ -96,7 +124,9 @@ const ProductDetail = ({ product }) => {
             const itemList = item.split(" - ");
             return (
               <div key={itemList[0]} className="flex">
-                <div className="min-w-[200px] md:min-w-[300px] font-bold">{itemList[0]}</div>
+                <div className="min-w-[200px] md:min-w-[300px] font-bold">
+                  {itemList[0]}
+                </div>
                 <div>{itemList[1]}</div>
               </div>
             );
@@ -104,7 +134,9 @@ const ProductDetail = ({ product }) => {
         </div>
         <div className="mt-1 w-full border-b border-gray-400"></div>
 
-        <div className="text-sm xl:text-xl font-bold mt-1 xl:mt-2">About this item</div>
+        <div className="text-sm xl:text-xl font-bold mt-1 xl:mt-2">
+          About this item
+        </div>
         <ul>
           {about.map((item, i) => (
             <li key={i} className="list-disc list-inside text-xs xl:text-sm">
@@ -122,18 +154,58 @@ const ProductDetail = ({ product }) => {
 
       {/* right */}
       <div className="border-2 border-gray-300 px-2 rounded-lg m-1 h-[40%] min-w-[15%] flex flex-col justify-between">
-        <div className="text-xl md:text-2xl">
+        <div className="flex justify-between text-xl md:text-2xl">
           <Currency quantity={price} currency="GBP" />
+          <div className="flex items-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              onClick={() => handleQuantity("dec")}
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            <div className="border border-gray-300 px-2 shadow-md text-base md:text-xl rounded-md">
+              {quantity}
+            </div>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              onClick={() => handleQuantity("inc")}
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
         </div>
         <div className="text-xs text-gray-500 mt-1 md:mt-2">
-          No Import Fees Deposit & Shipping 
+          No Import Fees Deposit & Shipping
         </div>
         <div className="mt-1 md:mt-2 text-xs">
           <span>Delivery </span>
           <span className="font-bold">{deliveryDate}</span>
         </div>
-        <div className="mt-1 md:mt-2 text-red-700 text-sm md:text-xl">In Stock</div>
-        <button className="mt-1 md:mt-2 button cursor-pointer">Add to Basket</button>
+        <div className="mt-1 md:mt-2 text-red-700 text-sm md:text-xl">
+          In Stock
+        </div>
+        <button
+          className="mt-1 md:mt-2 button cursor-pointer"
+          onClick={addItemToBasket}
+        >
+          Add to Basket
+        </button>
         <div className="flex mt-1 md:mt-2 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +219,9 @@ const ProductDetail = ({ product }) => {
               clip-rule="evenodd"
             />
           </svg>
-          <div className="text-xs text-blue-400 font-semibold ml-3">Secure transaction</div>
+          <div className="text-xs text-blue-400 font-semibold ml-3">
+            Secure transaction
+          </div>
         </div>
       </div>
     </div>

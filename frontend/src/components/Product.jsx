@@ -26,13 +26,25 @@ const Product = ({
       price,
       description,
       category,
+      quantity,
+      // setQuantity,
     };
     dispatch(addToBasket(product));
   };
 
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
   return (
-    <>
-      <div className="flex flex-col relative m-5 bg-white z-30 p-10">
+    <div className="flex flex-col relative m-5 bg-white z-30 p-10">
+      <div className="">
         <Link href={`/product/${slug}`}>
           <div className="absolute top-2 right-2 tex-xs italic text-gray-400">
             {category}
@@ -62,20 +74,53 @@ const Product = ({
           <div className="text-xs my-2 cursor-pointer line-clamp-2">
             {description}
           </div>
-
-          <div className="mb-5 cursor-pointer">
-            <Currency quantity={price} currency="GBP" />
-          </div>
         </Link>
 
-        <button
-          className="mt-auto button cursor-pointer"
-          onClick={addItemToBasket}
-        >
-          Add to Basket
-        </button>
+        <div className="mb-5 flex justify-between">
+          <Currency quantity={price} currency="GBP" />
+
+          <div className="flex gap-x-1 items-center cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              onClick={() => handleQuantity("dec")}
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            <div className="border border-gray-300 px-2 shadow-md text-xs md:text-sm rounded-md">
+              {quantity}
+            </div>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              onClick={() => handleQuantity("inc")}
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
-    </>
+      <button
+        className="mt-auto button cursor-pointer"
+        onClick={addItemToBasket}
+      >
+        Add to Basket
+      </button>
+    </div>
   );
 };
 
