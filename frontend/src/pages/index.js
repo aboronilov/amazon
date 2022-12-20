@@ -43,6 +43,6 @@ export async function getServerSideProps(context) {
 }
 
 // ToDo:
-// - auth state persist on refresh (вроде у Ламы редакс персист)
-// - quantity of products
+// - quantity of products - from cart?
 // - social auth
+// при переходе с одной страницы товара на другую не обнуляется кол-во
