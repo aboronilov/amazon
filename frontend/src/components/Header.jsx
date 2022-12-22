@@ -12,15 +12,13 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userRedux";
-import { selectItems } from "../redux/basketRedux";
 
 const Header = () => {
   const [search, setSearch] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
   const { isAuthenticated, currentUser } = useSelector((state) => state.user);
-  const { totatlQuantity } = useSelector((state) => state.basket);
-  const items = useSelector(selectItems);
+  const { totatlQuantity, items, total } = useSelector((state) => state.basket);  
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {

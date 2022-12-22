@@ -3,41 +3,43 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
-import { selectItems, selectTotal } from "../redux/basketRedux";
+import {
+  calculateTotals,
+  clearCart,
+} from "../redux/basketRedux";
 import Currency from "react-currency-formatter";
 import { useRouter } from "next/router";
-import {loadStripe} from "@stripe/stripe-js"
-import axios from "axios"
-const stripePromise = loadStripe(process.env.stipe_public_key)
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+const stripePromise = loadStripe(process.env.stipe_public_key);
+import { useEffect } from "react";
 
 const Checkout = () => {
-  const items = useSelector(selectItems);
-  const total = useSelector(selectTotal)
   const dispatch = useDispatch();
   const { isAuthenticated, currentUser } = useSelector((state) => state.user);
-  const { totatlQuantity } = useSelector((state) => state.basket);
-  const router = useRouter()
+  const { totatlQuantity, items, total } = useSelector((state) => state.basket);
+  const router = useRouter();
+
 
   const handleRedirect = async () => {
     if (!isAuthenticated) {
-      router.push("/login")
+      router.push("/login");
     } else {
       const stripe = await stripePromise;
 
       // call backend to create a checkout session
-      const checkoutSession = await axios.post("/api/create-checkout-session", 
-      {
+      const checkoutSession = await axios.post("/api/create-checkout-session", {
         items: items,
         email: currentUser.email,
-      })
+      });
 
       // redirect user to Stripe checkout
       const result = await stripe.redirectToCheckout({
-        sessionId: checkoutSession.data.id
-      })
-      result.error && alert(result.error.message)      
+        sessionId: checkoutSession.data.id,
+      });
+      result.error && alert(result.error.message);
     }
-  }
+  };
 
   return (
     <div className="bg-gray-100">
@@ -55,9 +57,22 @@ const Checkout = () => {
 
           <div className="flex flex-col p-5 space-y-10 bg-white">
             <h1 className="text-3xl border-b pb-4">
-              {items.length === 0
-                ? "Your Amazon basket is empty"
-                : "Your shopping basket"}
+              {items.length === 0 ? (
+                "Your Amazon basket is empty"
+              ) : (
+                <div className="flex justify-between">
+                  <p>Your shopping basket</p>
+                  <button
+                    className="mt-1 md:mt-2 button cursor-pointer"
+                    onClick={() => {
+                      dispatch(clearCart())
+                      dispatch(calculateTotals())
+                    }}
+                  >
+                    Clear all items
+                  </button>
+                </div>
+              )}
             </h1>
             {items.map(
               ({

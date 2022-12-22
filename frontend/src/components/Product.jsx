@@ -4,7 +4,7 @@ import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { addToBasket } from "../redux/basketRedux";
+import { addToBasket, calculateTotals } from "../redux/basketRedux";
 
 const Product = ({
   title,
@@ -30,6 +30,7 @@ const Product = ({
       // setQuantity,
     };
     dispatch(addToBasket(product));
+    dispatch(calculateTotals())
   };
 
   const [quantity, setQuantity] = useState(1);

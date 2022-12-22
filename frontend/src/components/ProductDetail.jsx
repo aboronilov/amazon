@@ -5,7 +5,7 @@ import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
 import { addDays } from "date-fns";
 import { useDispatch } from "react-redux";
-import { addToBasket } from "../redux/basketRedux";
+import { addToBasket, calculateTotals } from "../redux/basketRedux";
 
 const ProductDetail = ({ product }) => {
   const {
@@ -54,6 +54,7 @@ const ProductDetail = ({ product }) => {
       quantity,
     };
     dispatch(addToBasket(item));
+    dispatch(calculateTotals())
   };
 
   return (
