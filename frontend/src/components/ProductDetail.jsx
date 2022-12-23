@@ -6,6 +6,7 @@ import Currency from "react-currency-formatter";
 import { addDays } from "date-fns";
 import { useDispatch } from "react-redux";
 import { addToBasket, calculateTotals } from "../redux/basketRedux";
+import { useRouter } from "next/router";
 
 const ProductDetail = ({ product }) => {
   const {
@@ -57,7 +58,7 @@ const ProductDetail = ({ product }) => {
     dispatch(calculateTotals())
   };
 
-  return (
+  return (  
     <div className="flex flex-col lg:flex-row gap-y-3 md:gap-x-3 mt-5 md:mt-10">
       {/* left */}
       <div className="hidden lg:flex flex-col flex-grow md:flex-row">

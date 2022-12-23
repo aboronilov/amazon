@@ -2,9 +2,40 @@ import React from "react";
 import Header from "../components/Header";
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { clearCart, removeItem, calculateTotals } from "../redux/basketRedux";
 
 const Success = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { items } = useSelector((store) => store.basket);
+
+  const createOrders = async (item) => {
+    try {
+      const accessToken = localStorage.getItem("token");
+      const orderCreation = axios.create({
+        baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });      
+      const response = await orderCreation.post("/api/order/", { item });
+      if (response.status === 201) {
+        dispatch(removeItem(item.slug))
+        dispatch(calculateTotals())
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleOrders = () => {
+    items.forEach((item) => createOrders(item));    
+    router.push("/orders");
+    // dispatch(clearCart());
+  }
+
   return (
     <div className="bg-gray-100 h-screen">
       <Header />
@@ -22,10 +53,7 @@ const Success = () => {
             items have been delivered. You can track your order's status on the
             special page (link below)
           </p>
-          <button
-            className="button mt-8"
-            onClick={() => router.push("/orders")}
-          >
+          <button className="button mt-8" onClick={handleOrders}>
             Go to my orders
           </button>
         </div>
