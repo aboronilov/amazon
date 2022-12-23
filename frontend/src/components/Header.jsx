@@ -18,7 +18,7 @@ const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isAuthenticated, currentUser } = useSelector((state) => state.user);
-  const { totatlQuantity, items, total } = useSelector((state) => state.basket);  
+  const { totatlQuantity } = useSelector((state) => state.basket);  
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {

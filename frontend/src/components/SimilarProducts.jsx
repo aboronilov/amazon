@@ -13,7 +13,7 @@ const SimilarProducts = ({ similar }) => {
       <div className="border-b border-gray-400 w-full mb-5"></div>
       <div className="flex gap-x-10">
         {similar.map(({ images, title, rating, price, id, slug }) => (
-          <div key={id} className="cursor-pointer w-20 lg:w-40" onClick={() => router.push(`/product/${slug}`)}>
+          <div key={id} className="cursor-pointer w-20 lg:w-40" onClick={() => router.reload(`/product/${slug}`)}>
             <div className="relative w-20 lg:w-40 h-20 lg:h-40">
               <Image
                 alt="product"
