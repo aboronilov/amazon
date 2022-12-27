@@ -2,7 +2,6 @@ import axios from "axios";
 import Head from "next/head";
 import React from "react";
 import Header from "../components/Header";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";

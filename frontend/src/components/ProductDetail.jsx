@@ -6,7 +6,6 @@ import Currency from "react-currency-formatter";
 import { addDays } from "date-fns";
 import { useDispatch } from "react-redux";
 import { addToBasket, calculateTotals } from "../redux/basketRedux";
-import { useRouter } from "next/router";
 
 const ProductDetail = ({ product }) => {
   const {

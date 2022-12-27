@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { loginFailure, loginStart, loginSuccess } from "./userRedux";
 
 export const login = async (dispatch, { email, password }) => {
@@ -15,14 +16,13 @@ export const login = async (dispatch, { email, password }) => {
     localStorage.setItem("token", accessToken);
 
     try {
-      const authAxios = axios.create({
+      const authRequest = axios.create({
         baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      const response = await authAxios.get("/api/users/me/");
-      // console.log(response.data);
+      const response = await authRequest.get("/api/users/me/");
       dispatch(loginSuccess(response.data));
     } catch (err) {
       dispatch(loginFailure());

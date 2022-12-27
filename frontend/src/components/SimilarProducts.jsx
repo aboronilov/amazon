@@ -2,7 +2,6 @@ import Image from "next/image";
 import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 const SimilarProducts = ({ similar }) => {
   const router = useRouter();
@@ -17,32 +16,29 @@ const SimilarProducts = ({ similar }) => {
           <div
             key={id}
             className="cursor-pointer w-20 lg:w-40"
-            // onClick={() => {
-            //   router.push(`/product/${slug}`);
-            //   // router.reload(`/product/${slug}`);
-            // }}
+            onClick={() => {
+              router.push(`/product/${slug}`);              
+            }}
           >
-            <Link href={`/product/${slug}`}>
-              <div className="relative w-20 lg:w-40 h-20 lg:h-40">
-                <Image
-                  alt="product"
-                  src={`${process.env.NEXT_PUBLIC_API_URL}/${images[0].image}`}
-                  objectFit="contain"
-                  layout="fill"
-                />
-              </div>
-              <div className="text-xs md:text-sm line-clamp-4 text-cyan-600 hover:text-yellow-600">
-                {title}
-              </div>
-              <div className="flex">
-                {Array(rating)
-                  .fill()
-                  .map((_) => (
-                    <StarIcon className="h-5 text-yellow-500" />
-                  ))}
-              </div>
-              <Currency quantity={price} currency="GBP" />
-            </Link>
+            <div className="relative w-20 lg:w-40 h-20 lg:h-40">
+              <Image
+                alt="product"
+                src={`${process.env.NEXT_PUBLIC_API_URL}/${images[0].image}`}
+                objectFit="contain"
+                layout="fill"
+              />
+            </div>
+            <div className="text-xs md:text-sm line-clamp-4 text-cyan-600 hover:text-yellow-600">
+              {title}
+            </div>
+            <div className="flex">
+              {Array(rating)
+                .fill()
+                .map((_) => (
+                  <StarIcon className="h-5 text-yellow-500" />
+                ))}
+            </div>
+            <Currency quantity={price} currency="GBP" />
           </div>
         ))}
       </div>

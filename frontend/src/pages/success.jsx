@@ -3,8 +3,8 @@ import Header from "../components/Header";
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
+import { removeItem, calculateTotals } from "../redux/basketRedux";
 import axios from "axios";
-import { clearCart, removeItem, calculateTotals } from "../redux/basketRedux";
 
 const Success = () => {
   const router = useRouter();
@@ -14,13 +14,13 @@ const Success = () => {
   const createOrders = async (item) => {
     try {
       const accessToken = localStorage.getItem("token");
-      const orderCreation = axios.create({
+      const authRequest = axios.create({
         baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      });      
-      const response = await orderCreation.post("/api/order/", { item });
+      });  
+      const response = await authRequest.post("/api/order/", { item });
       if (response.status === 201) {
         dispatch(removeItem(item.slug))
         dispatch(calculateTotals())
@@ -33,7 +33,6 @@ const Success = () => {
   const handleOrders = () => {
     items.forEach((item) => createOrders(item));    
     router.push("/orders");
-    // dispatch(clearCart());
   }
 
   return (

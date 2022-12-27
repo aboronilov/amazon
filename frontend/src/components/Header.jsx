@@ -91,7 +91,13 @@ const Header = () => {
             </div>
           )}
 
-          <div className="link">
+          <div className="link" onClick={() => {
+            if (isAuthenticated) {
+              router.push("/orders")
+            } else {
+              router.push("/login")
+            }
+          }}>            
             <div>Returns</div>
             <div className="font-extrabold">& Orders</div>
           </div>

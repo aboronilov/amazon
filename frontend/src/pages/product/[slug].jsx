@@ -2,10 +2,13 @@ import Head from "next/head";
 import React from "react";
 import Header from "../../components/Header";
 import axios from "axios";
-import ProductDetail from "../../components/ProductDetail";
 import SimilarProducts from "../../components/SimilarProducts";
+import dynamic from 'next/dynamic'
+
 
 const Product = ({ product, similar }) => {
+  const ProductDetail = dynamic(() => import("../../components/ProductDetail"), { ssr: false })
+
   return (
     <div className="bg-white">
       <Head>
@@ -35,7 +38,7 @@ export async function getServerSideProps(context) {
     return {
       props: {        
         product,
-        similar
+        similar,
       },
     };
   }

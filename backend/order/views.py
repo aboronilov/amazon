@@ -12,8 +12,8 @@ class OrderView(viewsets.ModelViewSet):
 
     def list(self, request):
         user = request.user
-        queryset = Order.objects.filter(user=user, many=True)
-        return Response(self.serializer_class(queryset).data, status=status.HTTP_200_OK)
+        queryset = Order.objects.filter(user=user)
+        return Response(self.serializer_class(queryset, many=True).data, status=status.HTTP_200_OK)
 
     def create(self, request):
         user = request.user

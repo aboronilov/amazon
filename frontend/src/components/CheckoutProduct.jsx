@@ -20,9 +20,7 @@ const CheckoutProduct = ({
   slug,
   price,
   description,
-  category,
   quantity,
-  // setQuantity,
 }) => {
   const descriptionList = description.split(", ").slice(0, 3);
   const dispatch = useDispatch();
