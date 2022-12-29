@@ -12,7 +12,7 @@ User = get_user_model()
 class UserCreateSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = ('first_name', 'last_name', 'email', 'password')
+    fields = ('first_name', 'last_name', 'email', 'password', 'username')
 
   def validate(self, data):
     user = User(**data)
@@ -35,6 +35,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
       last_name=validated_data['last_name'],
       email=validated_data['email'],
       password=validated_data['password'],
+      username=validated_data['username'],
     )
 
     return user
@@ -43,4 +44,4 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = ('first_name', 'last_name', 'email',)
+    fields = ('first_name', 'last_name', 'email', 'username')

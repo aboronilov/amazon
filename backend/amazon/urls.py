@@ -24,6 +24,8 @@ urlpatterns = [
     path('api/', include('product.urls')),
     path('api/', include('accounts.urls')),
     path('api/', include('order.urls')),
+    path('api/', include('rest_framework.urls')),
+    path('api/', include('drf_social_oauth2.urls', namespace='drf')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

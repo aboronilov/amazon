@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import permissions, status
+from rest_framework import permissions, status, generics
 from .serializers import UserCreateSerializer, UserSerializer
+from .models import UserAccount
 
 
 class RegisterView(APIView):
@@ -18,6 +19,12 @@ class RegisterView(APIView):
         user = UserSerializer(user)
 
         return Response(user.data, status=status.HTTP_201_CREATED)
+        
+
+class AllUsers(generics.ListAPIView):
+   permission_classes=[permissions.AllowAny]
+   queryset=UserAccount.objects.all()
+   serializer_class=UserSerializer
 
 
 class RetrieveUserView(APIView):
