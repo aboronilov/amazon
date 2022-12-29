@@ -79,7 +79,7 @@ const Login = () => {
                 Continue
               </button>
             </div>
-            <div className="text-xs text-center my-1">or</div>
+            {/* <div className="text-xs text-center my-1">or</div>
             <div className="mt-3 w-64">
               <button
                 onClick=""
@@ -87,7 +87,7 @@ const Login = () => {
               >
                 Continue with Google
               </button>
-            </div>
+            </div> */}
             <div className="text-xs mt-6">
               By continuing, you agree to{" "}
               <span className="text-blue-500 cursor-pointer font-semibold hover:opacity-80">
