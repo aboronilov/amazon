@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userRedux";
 
-const Header = () => {
+const Header = ({searchTerm}) => {
   const [search, setSearch] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
@@ -56,6 +56,7 @@ const Header = () => {
             type="text"
             className="w-6 h-full rounded-l-lg flex-grow flex-shrink outline-none p-2"
             value={search}
+            placeholder={searchTerm ? searchTerm : ""}
             onChange={(event) => setSearch(event.target.value)}
             onKeyPress={handleSearch}
           />

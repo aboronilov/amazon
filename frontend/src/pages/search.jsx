@@ -7,14 +7,14 @@ import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
 import Link from "next/link";
 
-const Search = ({ products }) => {
+const Search = ({ products, searchTerm }) => {
   return (
     <div className="bg-white">
       <Head>
         <title>Boronilov Amazon</title>
       </Head>
 
-      <Header />
+      <Header searchTerm={searchTerm}/>
 
       <main className="max-w-full md:max-w-[70%] mx-auto">        
         <div className="text-2xl uppercase font-semibold mb-3">Results</div>
@@ -80,6 +80,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       products,
+      searchTerm: search
     },
   };
 }
