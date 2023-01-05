@@ -26,18 +26,18 @@ The deployed site will be availiable soon
 
 ![Search](https://github.com/aboronilov/amazon/blob/master/frontend/public/screenshots/search.jpeg)
 
-3. Product page with images, description, quantity and recommendations
+4. Product page with images, description, quantity and recommendations
 
 ![Product](https://github.com/aboronilov/amazon/blob/master/frontend/public/screenshots/product.jpg)
 
-4. Checkout with flexible product quantity
+5. Checkout with flexible product quantity
 
 ![Checkout](https://github.com/aboronilov/amazon/blob/master/frontend/public/screenshots/checkout.jpg)
 
-5. Payment via stripe session
+6. Payment via stripe session
 
 ![Payment](https://github.com/aboronilov/amazon/blob/master/frontend/public/screenshots/payment.jpg)
 
-6. Order delivery tracking
+7. Order delivery tracking
 
 ![Payment](https://github.com/aboronilov/amazon/blob/master/frontend/public/screenshots/tracking.jpg)
